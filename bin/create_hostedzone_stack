@@ -1,0 +1,11 @@
+#!/usr/bin/env ruby
+require 'pp'
+
+$: << File.expand_path('../../lib', __FILE__)
+require 'bind2route53'
+include Bind2Route53
+
+CreateHostedZoneStack.new(ARGV)
+
+
+

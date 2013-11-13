@@ -1,0 +1,14 @@
+$TTL 900
+@	IN	SOA	ns1.example.com. ns2.example.com.  (
+	2000000000; serial
+	10800     ; refresh
+	3600      ; retry
+	604800    ; expire
+	600       ; default_ttl
+) 
+
+	    IN	NS	ns1.example.com.
+	    IN	NS	ns2.example.com.
+mail    IN  A   192.168.4.1
+mail    IN  MX  10 mail.example.com.
+

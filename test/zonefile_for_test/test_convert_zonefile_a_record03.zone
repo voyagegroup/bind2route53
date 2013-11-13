@@ -1,0 +1,13 @@
+$TTL 900
+@	IN	SOA	ns1.example.com. ns2.example.com.  (
+	2000000000; serial
+	10800     ; refresh
+	3600      ; retry
+	604800    ; expire
+	600       ; default_ttl
+) 
+
+	     IN	NS	ns1.example.com.
+	     IN	NS	ns2.example.com.
+alias    IN  A  ALIAS_alias-xxxxxxxx-1234567.ap-northeast-1.elb.amazonaws.com.
+

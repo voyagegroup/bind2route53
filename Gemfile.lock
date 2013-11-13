@@ -1,0 +1,21 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    aws-sdk (1.24.0)
+      json (~> 1.4)
+      nokogiri (>= 1.4.4, < 1.6.0)
+      uuidtools (~> 2.1)
+    json (1.8.1)
+    nokogiri (1.5.10)
+    redgreen (1.2.2)
+    uuidtools (2.1.4)
+    zonefile (1.04)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  aws-sdk
+  json
+  redgreen
+  zonefile

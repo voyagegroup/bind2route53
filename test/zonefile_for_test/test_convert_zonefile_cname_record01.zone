@@ -1,0 +1,16 @@
+$TTL 900
+@	IN	SOA	ns1.example.com. ns2.example.com.  (
+	2000000000; serial
+	10800     ; refresh
+	3600      ; retry
+	604800    ; expire
+	600       ; default_ttl
+) 
+
+	       IN  NS	 ns1.example.com.
+	       IN  NS	 ns2.example.com.
+
+test	       IN  A     192.168.4.1
+cname          IN  CNAME test
+example2   100 IN  CNAME example2.com.
+
