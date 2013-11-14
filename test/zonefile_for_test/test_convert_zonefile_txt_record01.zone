@@ -11,4 +11,7 @@ $TTL 900
 	        IN	NS	  ns2.example.com.
 spf	        IN  TXT   "v=spf1 +ip4:192.168.4.0/24 +ip4:10.0.0.0/24 ~all"
 spf2    100 IN  TXT   "KdeSEn375EyXno10f2izhAp04ENSXW0LitQBYKJAG/c="
+spf3        IN  TXT   "txt-test-1" "txt-test-2"
+spf4        IN  TXT   "txt-test-1"
+spf4        IN  TXT   "txt-test-2"
 

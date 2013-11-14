@@ -80,7 +80,9 @@ class TestConvertZonefile < Test::Unit::TestCase
     args = ['-f', zonefile_path, '-z', zonename]
     recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
     expects = [{"ResourceRecords"=>["\"v=spf1 +ip4:192.168.4.0/24 +ip4:10.0.0.0/24 ~all\""], "TTL"=>"900", "Name"=>"spf.example.com.",  "Type"=>"TXT"},
-               {"ResourceRecords"=>["\"KdeSEn375EyXno10f2izhAp04ENSXW0LitQBYKJAG/c=\""],     "TTL"=>"100", "Name"=>"spf2.example.com.", "Type"=>"TXT"}]
+               {"ResourceRecords"=>["\"KdeSEn375EyXno10f2izhAp04ENSXW0LitQBYKJAG/c=\""],     "TTL"=>"100", "Name"=>"spf2.example.com.", "Type"=>"TXT"},
+               {"ResourceRecords"=>["\"txt-test-1\" \"txt-test-2\""],                        "TTL"=>"900", "Name"=>"spf3.example.com.", "Type"=>"TXT"},
+               {"ResourceRecords"=>["\"txt-test-1\"", "\"txt-test-2\""],                     "TTL"=>"900", "Name"=>"spf4.example.com.", "Type"=>"TXT"}]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end
