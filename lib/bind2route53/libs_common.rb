@@ -1,6 +1,6 @@
 module Bind2Route53
   def load_config(config_file)
-    config_file = './config/default.yml' if config_file.nil?
+    config_file = "#{$BASE_DIR}config/default.yml" if config_file.nil?
     YAML.load(File.open(config_file))
   end
 
