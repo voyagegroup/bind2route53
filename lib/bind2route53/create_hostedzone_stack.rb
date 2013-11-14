@@ -24,7 +24,8 @@ module Bind2Route53
         :region            => $config[:region]
       )
 
-      stackname, template = load_template(cfm, template_path)
+      zonename, template = load_template(cfm, template_path)
+      stackname = zonename2stackname(zonename, "R53-")
 
       confirm("Do you create hosted zone stack?") if $config[:confirm] 
       cfm.stacks.create(stackname, template)
