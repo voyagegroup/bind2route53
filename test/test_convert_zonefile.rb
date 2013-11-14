@@ -31,7 +31,7 @@ class TestConvertZonefile < Test::Unit::TestCase
     zonefile_path  = './zonefile_for_test/test_convert_zonefile_a_record01.zone'
     args = ['-f', zonefile_path, '-z', zonename]
     recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
-    expects = [{"ResourceRecords"=>["192.168.4.1"], "TTL"=>"900", "Name"=>"example.com.",      "Type"=>"A"},
+    expects = [{"ResourceRecords"=>["192.168.4.1"], "TTL"=>"600", "Name"=>"example.com.",      "Type"=>"A"},
                {"ResourceRecords"=>["192.168.4.1"], "TTL"=>"100", "Name"=>"test.example.com.", "Type"=>"A"}]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
@@ -51,10 +51,10 @@ class TestConvertZonefile < Test::Unit::TestCase
     zonefile_path = './zonefile_for_test/test_convert_zonefile_cname_record01.zone'
     args = ['-f', zonefile_path, '-z', zonename]
     recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
-    expects = [{"ResourceRecords"=>["192.168.4.1"],       "TTL"=>"900", "Name"=>"test.example.com.",     "Type"=>"A"},
-               {"ResourceRecords"=>["test.example.com."], "TTL"=>"900", "Name"=>"cname.example.com.",    "Type"=>"CNAME"},
+    expects = [{"ResourceRecords"=>["192.168.4.1"],       "TTL"=>"700", "Name"=>"test.example.com.",     "Type"=>"A"},
+               {"ResourceRecords"=>["test.example.com."], "TTL"=>"700", "Name"=>"cname.example.com.",    "Type"=>"CNAME"},
                {"ResourceRecords"=>["example2.com."],     "TTL"=>"100", "Name"=>"example2.example.com.", "Type"=>"CNAME"},
-               {"ResourceRecords"=>["example.com."],      "TTL"=>"900", "Name"=>"www.example.com.",      "Type"=>"CNAME"}]
+               {"ResourceRecords"=>["example.com."],      "TTL"=>"700", "Name"=>"www.example.com.",      "Type"=>"CNAME"}]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end

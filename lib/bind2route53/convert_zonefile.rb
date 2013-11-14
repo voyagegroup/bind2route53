@@ -7,12 +7,6 @@ require 'pp'
 module Bind2Route53
   class ConvertZonefile
     def initialize(args)
-      @default_ttl_a     = 900
-      @default_ttl_cname = 900
-      @default_ttl_mx    = 900
-      @default_ttl_txt   = 900
-      @default_ttl_ptr   = 900
-      @default_ttl_ns    = 900
 
       options = MyOptionParser.new(args)
       options.add_option_c
@@ -47,6 +41,8 @@ module Bind2Route53
           }
         }
       }
+
+      @default_ttl = zf.ttl
       
       zf.records.each do |record_type, records|
         supported_records_type = [:a, :txt, :cname, :mx, :ptr, :ns]
@@ -68,7 +64,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_a  = record[:ttl] || @default_ttl_a
+        ttl_a  = record[:ttl] || @default_ttl
         name_a = zonename
         name_a = "#{record[:name]}.#{zonename}" unless record[:name].nil?
     
@@ -93,7 +89,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_cname  = record[:ttl] || @default_ttl_cname
+        ttl_cname  = record[:ttl] || @default_ttl
         name_cname = zonename
         name_cname = "#{record[:name]}.#{zonename}" unless record[:name].nil?
         
@@ -116,7 +112,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_mx  = record[:ttl] || @default_ttl_mx
+        ttl_mx  = record[:ttl] || @default_ttl
         name_mx = zonename
         name_mx = "#{record[:name]}.#{zonename}" unless record[:name].nil?
   
@@ -143,7 +139,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_txt  = record[:ttl] || @default_ttl_txt
+        ttl_txt  = record[:ttl] || @default_ttl
         name_txt = zonename
         name_txt = "#{record[:name]}.#{zonename}" unless record[:name].nil?
   
@@ -168,7 +164,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_ptr  = record[:ttl] || @default_ttl_ptr
+        ttl_ptr  = record[:ttl] || @default_ttl
         name_ptr = zonename
         name_ptr = "#{record[:name]}.#{zonename}" unless record[:name].nil?
   
@@ -188,7 +184,7 @@ module Bind2Route53
       record_sets = []
     
       records.each do |record| 
-        ttl_ns  = record[:ttl] || @default_ttl_ns
+        ttl_ns  = record[:ttl] || @default_ttl
         name_ns = zonename
         next if record[:name].nil?
         name_ns = "#{record[:name]}.#{zonename}"

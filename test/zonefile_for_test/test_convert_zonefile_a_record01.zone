@@ -1,4 +1,4 @@
-$TTL 900
+$TTL 600
 @	IN	SOA	ns1.example.com. ns2.example.com.  (
 	2000000000; serial
 	10800     ; refresh
