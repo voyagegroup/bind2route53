@@ -97,6 +97,20 @@ class TestConvertZonefile < Test::Unit::TestCase
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end
+
+  def test_ns_record
+    zonename      = 'example.com.'
+    resource_name = zonename2resourcename(zonename, 'R53')
+
+    zonefile_path  = './zonefile_for_test/test_convert_zonefile_ns_record01.zone'
+    args = ['-f', zonefile_path, '-z', zonename]
+    recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
+    expects = [{"ResourceRecords"=>["ns-test1-1.example.com.", "ns-test1-2.example.com."], "TTL"=>"900", "Name"=>"ns-test1.example.com.", "Type"=>"NS"},
+               {"ResourceRecords"=>["ns-test2-1.example.com.", "ns-test2-2.example.com."], "TTL"=>"200", "Name"=>"ns-test2.example.com.", "Type"=>"NS"}]
+    assert_equal [], expects - recordsets
+    assert_equal [], recordsets - expects
+
+  end
 end
 
 

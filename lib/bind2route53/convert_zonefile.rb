@@ -12,6 +12,7 @@ module Bind2Route53
       @default_ttl_mx    = 900
       @default_ttl_txt   = 900
       @default_ttl_ptr   = 900
+      @default_ttl_ns    = 900
 
       options = MyOptionParser.new(args)
       options.add_option_c
@@ -48,8 +49,8 @@ module Bind2Route53
       }
       
       zf.records.each do |record_type, records|
-        supported_records_type = [:a, :txt, :cname, :mx, :ptr]
-        ignore_records_type    = [:soa, :ns]
+        supported_records_type = [:a, :txt, :cname, :mx, :ptr, :ns]
+        ignore_records_type    = [:soa]
       
         next if records.empty? || ignore_records_type.include?(record_type)
       
@@ -175,6 +176,32 @@ module Bind2Route53
           "Name" => name_ptr,
           "Type" => "PTR",
           "TTL"  => "#{ttl_ptr}",
+          "ResourceRecords" => [record[:host]]
+        }
+        record_sets << record_set
+      end
+    
+      record_sets
+    end
+
+    def parse_records_ns(zonename, records)
+      record_sets = []
+    
+      records.each do |record| 
+        ttl_ns  = record[:ttl] || @default_ttl_ns
+        name_ns = zonename
+        next if record[:name].nil?
+        name_ns = "#{record[:name]}.#{zonename}"
+    
+        unless record_sets.select {|r| r["Name"] == "#{name_ns}" }.empty?
+           record_sets.select {|r| r["Name"] == "#{name_ns}" }[0]["ResourceRecords"] << record[:host]
+           next
+        end
+    
+        record_set = {
+          "Name" => name_ns,
+          "Type" => "NS",
+          "TTL"  => "#{ttl_ns}",
           "ResourceRecords" => [record[:host]]
         }
         record_sets << record_set
