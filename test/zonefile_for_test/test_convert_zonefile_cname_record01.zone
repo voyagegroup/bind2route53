@@ -13,4 +13,4 @@ $TTL 900
 test	       IN  A     192.168.4.1
 cname          IN  CNAME test
 example2   100 IN  CNAME example2.com.
-
+www            IN  CNAME @

@@ -9,7 +9,6 @@ $TTL 900
 
 	        IN	NS	  ns1.example.com.
 	        IN	NS	  ns2.example.com.
-            IN  TXT   192.168.4.1
 spf	        IN  TXT   "v=spf1 +ip4:192.168.4.0/24 +ip4:10.0.0.0/24 ~all"
 spf2    100 IN  TXT   "KdeSEn375EyXno10f2izhAp04ENSXW0LitQBYKJAG/c="
 

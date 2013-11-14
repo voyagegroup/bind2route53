@@ -95,8 +95,9 @@ module Bind2Route53
         ttl_cname  = record[:ttl] || @default_ttl_cname
         name_cname = zonename
         name_cname = "#{record[:name]}.#{zonename}" unless record[:name].nil?
-  
-        record[:host] += "." + zonename unless record[:host] =~ /\.$/
+        
+        record[:host] = "#{zonename}"                  if     record[:host] == '@'
+        record[:host] = "#{record[:host]}.#{zonename}" unless record[:host] =~ /\.$/
     
         record_set = {
           "Name" => name_cname,
