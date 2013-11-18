@@ -71,8 +71,11 @@ class TestConvertZonefile < Test::Unit::TestCase
     zonefile_path = './zonefile_for_test/test_convert_zonefile_mx_record01.zone'
     args = ['-f', zonefile_path, '-z', zonename]
     recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
-    expects = [{"ResourceRecords"=>["192.168.4.1"],          "TTL"=>"900", "Name"=>"mail.example.com.", "Type"=>"A"},
-               {"ResourceRecords"=>["10 mail.example.com."], "TTL"=>"900", "Name"=>"mail.example.com.", "Type"=>"MX"}]
+    expects = [{"ResourceRecords"=>["192.168.4.1"],           "TTL"=>"900", "Name"=>"mail2.example.com.", "Type"=>"A"},
+               {"ResourceRecords"=>["10 mail.other.com."],    "TTL"=>"900", "Name"=>"mail.example.com.", "Type"=>"MX"},
+               {"ResourceRecords"=>["10 mail2.example.com."], "TTL"=>"900", "Name"=>"org.example.com.",  "Type"=>"MX"}]
+    pp recordsets
+    pp expects
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end

@@ -117,6 +117,7 @@ module Bind2Route53
         name_mx = "#{record[:name]}.#{zonename}" unless record[:name].nil?
   
         record[:host] = record[:pri].to_s + " " + record[:host] unless record[:pri].nil?
+        record[:host] = "#{record[:host]}.#{zonename}"          unless record[:host] =~ /\.$/
   
         unless record_sets.select {|r| r["Name"] == "#{name_mx}" }.empty?
            record_sets.select {|r| r["Name"] == "#{name_mx}" }[0]["ResourceRecords"] << record[:host]

@@ -9,6 +9,7 @@ $TTL 900
 
 	    IN	NS	ns1.example.com.
 	    IN	NS	ns2.example.com.
-mail    IN  A   192.168.4.1
-mail    IN  MX  10 mail.example.com.
+mail    IN  MX  10 mail.other.com.
+mail2   IN  A   192.168.4.1
+org     IN  MX  10 mail2
 
