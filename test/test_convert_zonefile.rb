@@ -19,6 +19,11 @@ class TestConvertZonefile < Test::Unit::TestCase
     assert_equal true,  ConvertZonefile.new(args).template_hash["Resources"].include?("R53ExampleCom")
 
     zonefile_path = './zonefile_for_test/test_convert_zonefile_zonename.zone'
+    zonename      = '0/25.example.com.'
+    args = ['-f', zonefile_path, '-z', zonename]
+    assert_equal true,  ConvertZonefile.new(args).template_hash["Resources"].include?('R53025ExampleCom')
+
+    zonefile_path = './zonefile_for_test/test_convert_zonefile_zonename.zone'
     zonename      = 'example.com.'
     args = ['-f', zonefile_path, '-z', zonename]
     assert_equal false,  ConvertZonefile.new(args).template_hash["Resources"].include?("example.com.")
@@ -98,6 +103,14 @@ class TestConvertZonefile < Test::Unit::TestCase
                {"ResourceRecords"=>["test20.example.com."], "TTL"=>"100", "Name"=>"20.4.168.192.in-addr.arpa.", "Type"=>"PTR"}]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
+
+    zonename      = '0/25.4.168.192.in-addr.arpa.'
+    resource_name = zonename2resourcename(zonename, 'R53')
+
+    zonefile_path = './zonefile_for_test/test_convert_zonefile_ptr_record02.zone'
+    args = ['-f', zonefile_path, '-z', zonename]
+    hosted_zonename = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["HostedZoneName"]
+    assert_equal '0/5725.4.168.192.in-addr.arpa.', hosted_zonename
   end
 
   def test_ns_record

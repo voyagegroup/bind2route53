@@ -28,14 +28,14 @@ module Bind2Route53
         warn "[Error][#{$config[:env]}] You specified invalid zone file." 
         exit 1
       end
-      
+
       @template = {
         "AWSTemplateFormatVersion" => "2010-09-09",
         "Resources" => {
           "#{resources_neme}" => {
             "Type" => "AWS::Route53::RecordSetGroup",
             "Properties" => {
-              "HostedZoneName" => "#{zonename}",
+              "HostedZoneName" => "#{zonename.gsub(/\//, '\057')}",
               "RecordSets"     => []
             }
           }

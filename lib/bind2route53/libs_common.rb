@@ -20,10 +20,10 @@ module Bind2Route53
   end
 
   def zonename2stackname(zonename, prefix = '')
-    prefix + zonename.gsub(/\.$/, '').gsub(/-([0-9])/, '-DASH\0').gsub(/\//, "-SLA-").gsub(/^\w|\.[\w]/){|w|w.upcase}.gsub(/\./, '-')
+    prefix + zonename.gsub(/\.$/, '').gsub(/-([0-9])/, '-DASH\0').gsub(/(\/|\\057)/, "-SLA-").gsub(/^\w|\.[\w]/){|w|w.upcase}.gsub(/\./, '-')
   end
   
   def zonename2resourcename(zonename, prefix = '')
-    prefix + zonename.gsub(/[-\/]/, '').gsub(/^\w|\.[\w]/){|w|w.upcase}.gsub(/\./, '')
+    prefix + zonename.gsub(/([-\/]|\\057)/, '').gsub(/^\w|\.[\w]/){|w|w.upcase}.gsub(/\./, '')
   end
 end
