@@ -18,7 +18,7 @@ class TestLibsCommon < Test::Unit::TestCase
       ['abc.1def.com'    ,'R53-Abc-1def-Com'      ],
       ['abc1def.com'     ,'R53-Abc1def-Com'       ],
       ['0/25.abc.com'    ,'R53-0-SLA-25-Abc-Com'  ],
-      ['0\05725.abc.com' ,'R53-0-SLA-25-Abc-Com'  ]
+      ['0\05725.abc.com' ,'R53-0-SLA-25-Abc-Com'  ],
     ]
     test_sets.each do |test_set|
       assert_equal test_set[1], zonename2stackname(test_set[0], prefix)

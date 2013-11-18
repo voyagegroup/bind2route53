@@ -35,7 +35,7 @@ module Bind2Route53
           "#{resources_neme}" => {
             "Type" => "AWS::Route53::RecordSetGroup",
             "Properties" => {
-              "HostedZoneName" => "#{zonename.gsub(/\//, '\057')}",
+              "HostedZoneName" => "#{zonename.gsub(/\//, '\\\057')}",
               "RecordSets"     => []
             }
           }
