@@ -10,7 +10,7 @@ TESTS=(\
 "test_convert_zonefile.rb" \
 )
 
-echo "==== TEST START ====="
+echo "[Info] Test start."
 
 STATUS=0
 
@@ -24,5 +24,5 @@ for TEST in ${TESTS[@]}; do
 	if [ $? = 1 ];then STATUS=1; fi
 done
 
-echo "====  TEST END  ====="
+echo "[Info] Test End. status:${STATUS}"
 exit $STATUS
