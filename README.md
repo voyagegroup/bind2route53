@@ -3,10 +3,9 @@ bind2route53
 
 Management tool for Route 53 with bind zone file.
 
-# Setup
-
-## Create IAM Account
- CloudFormation privileges. 
+## Setup
+### Create IAM Account
+#### CloudFormation privileges. 
 ```json
 {
   "Version": "2012-10-17",
@@ -29,7 +28,7 @@ Management tool for Route 53 with bind zone file.
   ]
 }
 ```
- Route 53 privileges.
+#### Route 53 privileges.
 ```json
 {
   "Version": "2012-10-17",
@@ -51,8 +50,7 @@ Management tool for Route 53 with bind zone file.
   ]
 }
 ```
-
-## Clone and create config file.
+### Clone and create config file.
 ```bash
 $ git clone https://github.com/vg-s-tajima/bind2route53.git
 $ cd bind2route53/config/
@@ -64,5 +62,44 @@ $ cat default.yml
 :secret_key:             # Secret key for AWS api.
 ```
 
+## Usage
 
+#### Common Option.
+
+    -c, --config-file=val  Config file. (default: config/default.yml) [Optional]
+    -h                     Show Help.
+
+#### Convert bind zone file to CloudFormation template. 
+
+    $ bin/convert_zonefile [options]
+    -f, --zone-file=val    Zone file. [Required]
+    -z, --zone-name=val    Zone name. [Required]
+    
+    ex.) 
+    $ bin/convert_zonefile -z example.com. -f /path/to/zonefile.zone > /path/to/templatefile.template
+
+#### Create Route 53 Hosted Zone.
+
+    $ bin/create_hostedzone [options]
+    -z, --zone-name=val    Zone name. [Required]
+    
+    ex.) 
+    $ bin/create_hostedzone -z example.com.
+
+    
+#### Create CloudFormation Stack.
+
+    $ bin/create_hostedzone_stack [options]
+    -t, --template-file=val CloudFormation template. [Required]
+
+    ex.) 
+    $ bin/create_hostedzone_stack -t /path/to/templatefile.template
+
+#### Update CloudFormation Stack.
+
+    $ bin/update_hostedzone_stack [options]
+    -t, --template-file=val CloudFormation template. [Required]
+
+    ex.) 
+    $ bin/update_hostedzone_stack -t /path/to/templatefile.template
 
