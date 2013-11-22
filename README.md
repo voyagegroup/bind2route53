@@ -60,7 +60,7 @@ $ cat default.yml
 :region: ap-northeast-1  # Region for aws api.
 :access_key_id:          # Access key id for AWS api.
 :secret_key:             # Secret key for AWS api.
-:confirm:                # If true, This scripts confirma before create/update AWS Resources(HostedZone/Stack).
+:confirm:                # If true, This scripts confirms before create/update AWS Resources(HostedZone/Stack).
 ```
 
 ## Usage
