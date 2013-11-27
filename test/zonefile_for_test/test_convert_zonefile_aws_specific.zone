@@ -1,0 +1,45 @@
+$TTL 900
+@	IN	SOA	ns1.example.com. ns2.example.com.  (
+	2000000000; serial
+	10800     ; refresh
+	3600      ; retry
+	604800    ; expire
+	600       ; default_ttl
+) 
+
+	    IN	NS	ns1.example.com.
+	    IN	NS	ns2.example.com.
+test    IN  A   192.168.4.1
+
+; AWS SPECIFIC BEGIN
+;[{
+;  "Name": "aliastest.example.com.",
+;  "Type": "A",
+;  "ResourceRecords": [
+;  ],
+;  "AliasTarget": {
+;    "HostedZoneId": "ABCDEFGHIJKLMN",
+;    "DNSName": "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
+;  }
+;},
+;{
+;  "Name": "policytest-weighted.example.com.",
+;  "Type": "A",
+;  "SetIdentifer": "Test for weighted policy 10.",
+;  "Weight": "10",
+;  "TTL": "300",
+;  "ResourceRecords": [
+;    "192.168.4.1"
+;  ]
+;},
+;{
+;  "Name": "policytest-weighted.example.com.",
+;  "Type": "A",
+;  "SetIdentifer": "Test for weighted policy 3",
+;  "Weight": "3",
+;  "TTL": "300",
+;  "ResourceRecords": [
+;    "192.168.4.2"
+;  ]
+;}]
+; AWS SPECIFIC END

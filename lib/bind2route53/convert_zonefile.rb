@@ -58,6 +58,12 @@ module Bind2Route53
         record_sets = self.send("parse_records_#{record_type.to_s}", zonename, records)
         @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += record_sets
       end
+      
+      aws_specific = File.read(zonefile_path).scan(/^; AWS SPECIFIC BEGIN\n(.*); AWS SPECIFIC END$/m).flatten[0]
+      if aws_specific
+        @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += JSON.parse(aws_specific.gsub(/^;/, ''))
+      end
+      @template
     end
 
     def parse_records_a(zonename, records)

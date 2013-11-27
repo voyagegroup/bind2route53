@@ -125,7 +125,43 @@ class TestConvertZonefile < Test::Unit::TestCase
                {"ResourceRecords"=>["ns-test2-1.example.com.", "ns-test2-2.example.com."], "TTL"=>"200", "Name"=>"ns-test2.example.com.", "Type"=>"NS"}]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
+  end
 
+  def test_aws_specific
+    zonename      = 'example.com.'
+    resource_name = zonename2resourcename(zonename, 'R53')
+
+    zonefile_path  = './zonefile_for_test/test_convert_zonefile_aws_specific.zone'
+    args = ['-f', zonefile_path, '-z', zonename]
+    recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
+    expects = [
+      {"ResourceRecords"=>["192.168.4.1"], "TTL"=>"900", "Name"=>"test.example.com.", "Type"=>"A"},
+      {
+        "ResourceRecords" => [], 
+        "Name" => "aliastest.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName" => "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
+        "ResourceRecords"=>["192.168.4.1"],
+        "TTL"=>"300",
+        "SetIdentifer"=>"Test for weighted policy 10.",
+        "Name"=>"policytest-weighted.example.com.",
+        "Weight"=>"10",
+        "Type"=>"A"
+      }, {
+        "ResourceRecords"=>["192.168.4.2"],
+          "TTL"=>"300",
+          "SetIdentifer"=>"Test for weighted policy 3",
+          "Name"=>"policytest-weighted.example.com.",
+          "Weight"=>"3",
+          "Type"=>"A"
+      } 
+    ]
+    assert_equal [], expects - recordsets
+    assert_equal [], recordsets - expects
   end
 end
 
