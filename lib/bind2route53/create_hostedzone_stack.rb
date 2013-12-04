@@ -27,7 +27,7 @@ module Bind2Route53
       zonename, template = load_template(cfm, template_path)
       stackname = zonename2stackname(zonename, "R53-")
 
-      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}log" 
       $logger  = MyLogger.new($logfile)
 
       confirm("Do you create hosted zone stack?") if $config[:confirm] 

@@ -29,7 +29,7 @@ module Bind2Route53
       stackname     = zonename2stackname(zonename, "R53-")
       cur_template = cfm.stacks[stackname].template
 
-      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}log" 
       $logger  = MyLogger.new($logfile)
 
       new_records = JSON.parse(new_template)['Resources'][resource_name]['Properties']["RecordSets"]

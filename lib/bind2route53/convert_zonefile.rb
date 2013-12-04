@@ -22,7 +22,7 @@ module Bind2Route53
       resources_neme = zonename2resourcename(zonename, 'R53')
 
       $config  = load_config(config_path)
-      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}log" 
       $logger  = MyLogger.new($logfile)
 
       zf = Zonefile.from_file(zonefile_path)

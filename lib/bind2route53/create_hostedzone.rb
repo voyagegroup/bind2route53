@@ -15,7 +15,7 @@ module Bind2Route53
       config_path = options.val(:config_path)
       zonename    = options.val(:zonename)
       $config     = load_config(config_path)
-      $logfile    = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logfile    = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}log" 
       $logger     = MyLogger.new($logfile)
 
       #AWS.config(:logger => Logger.new($stdout))
