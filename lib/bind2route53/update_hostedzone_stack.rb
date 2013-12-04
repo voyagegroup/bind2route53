@@ -15,7 +15,7 @@ module Bind2Route53
       config_path   = options.val(:config_path)
       template_path = options.val(:template_path)
 
-      $config = load_config(config_path)
+      $config  = load_config(config_path)
 
       #AWS.config(:logger => Logger.new($stdout))
       cfm = AWS::CloudFormation.new(
@@ -29,6 +29,9 @@ module Bind2Route53
       stackname     = zonename2stackname(zonename, "R53-")
       cur_template = cfm.stacks[stackname].template
 
+      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logger  = MyLogger.new($logfile)
+
       new_records = JSON.parse(new_template)['Resources'][resource_name]['Properties']["RecordSets"]
       cur_records = JSON.parse(cur_template)['Resources'][resource_name]['Properties']["RecordSets"]
 
@@ -36,28 +39,28 @@ module Bind2Route53
       deleted_records = cur_records - new_records
 
       if added_records.empty? && deleted_records.empty?
-        warn "[Warn][#{$config[:env]}] Template is updated. No need to update stack."
+        $logger.warn "[Warn][#{$config[:env]}] Template is updated. No need to update stack."
         exit
       end
 
-      puts "[Info][#{$config[:env]}] Record sets diff are below."
+      $logger.info "[Info][#{$config[:env]}] Record sets diff are below."
       display_records(added_records,   '+')
       display_records(deleted_records, '-')
 
       confirm("Do you update hosted zone stack?") if $config[:confirm] 
       cfm.stacks[stackname].update(:template => new_template)
 
-      puts "[Info][#{$config[:env]}] Update hosted zone stack start. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
+      $logger.info "[Info][#{$config[:env]}] Update hosted zone stack start. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
       unless wait_update_stacke(cfm, stackname, 10)
-        puts "[Error][#{$config[:env]}] Update hosted zone stack failed. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
+        $logger.error "[Error][#{$config[:env]}] Update hosted zone stack failed. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
         exit 1
       end
-      puts "[Info][#{$config[:env]}] Update hosted zone stack complete. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
+      $logger.info "[Info][#{$config[:env]}] Update hosted zone stack complete. (#{Time.now.strftime("%Y-%m-%d %H:%M:%S")})"
     end
 
     def display_records(records, prefix = '+')
       records.each do |r|
-        puts "#{prefix} #{r["Name"].ljust(40)} #{r["Type"].ljust(8)} #{r["ResourceRecords"].join(" ")}"
+        $logger.info "#{prefix} #{r["Name"].ljust(40)} #{r["Type"].ljust(8)} #{r["ResourceRecords"].join(" ")}"
       end
     end
 

@@ -15,6 +15,8 @@ module Bind2Route53
       config_path = options.val(:config_path)
       zonename    = options.val(:zonename)
       $config     = load_config(config_path)
+      $logfile    = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logger     = MyLogger.new($logfile)
 
       #AWS.config(:logger => Logger.new($stdout))
       r53 = AWS::Route53.new(
@@ -26,13 +28,13 @@ module Bind2Route53
       check_hosted_zone(r53, zonename)
       confirm("Do you create hosted zone?") if $config[:confirm] 
       create_hosted_zone(r53, zonename)
-      puts "[Info][#{$config[:env]}] Created hosted Zone."
+      $logger.info "[Info][#{$config[:env]}] Created hosted Zone."
     end
   end
 
   def check_hosted_zone(r53, zonename)
     unless r53.client.list_hosted_zones[:hosted_zones].find {|z| z[:name] =~ /#{zonename}\.?/}.nil?
-      warn "[Warn][#{$config[:env]}] Hosted zone already exists. Skip to create hosted zone."
+      $logger.warn "[Warn][#{$config[:env]}] Hosted zone already exists. Skip to create hosted zone."
       exit 1
     end
   end
@@ -41,8 +43,8 @@ module Bind2Route53
     begin 
       r53.hosted_zones.create(zonename)
     rescue => ex
-      warn "[Error][#{$config[:env]}] Create hosted zone failed."
-      warn "[Error][#{$config[:env]}] #{ex.message}"
+      $logger.error "[Error][#{$config[:env]}] Create hosted zone failed."
+      $logger.error "[Error][#{$config[:env]}] #{ex.message}"
       exit 1
     end
   end

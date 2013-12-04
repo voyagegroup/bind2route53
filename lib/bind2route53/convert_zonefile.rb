@@ -21,11 +21,13 @@ module Bind2Route53
       type           = zonefile_name.scan(/^.*\.(zone|rev)$/).flatten[0]
       resources_neme = zonename2resourcename(zonename, 'R53')
 
-      $config     = load_config(config_path)
+      $config  = load_config(config_path)
+      $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename}.log" 
+      $logger  = MyLogger.new($logfile)
 
       zf = Zonefile.from_file(zonefile_path)
       if zf.empty?
-        warn "[Error][#{$config[:env]}] You specified invalid zone file." 
+        $logger.error "[Error][#{$config[:env]}] You specified invalid zone file." 
         exit 1
       end
 
@@ -51,7 +53,7 @@ module Bind2Route53
         next if records.empty? || ignore_records_type.include?(record_type)
       
         if !supported_records_type.include?(record_type)
-          warn "[Warn][#{$config[:env]}] unsupported record type exists! (#{record_type})"
+          $logger.warn "[Warn][#{$config[:env]}] unsupported record type exists! (#{record_type})"
           next
         end
       
