@@ -7,19 +7,22 @@ $TTL 900
 	600       ; default_ttl
 ) 
 
-	    IN	NS	ns1.example.com.
-	    IN	NS	ns2.example.com.
-test    IN  A   192.168.4.1
+	        IN	NS	ns1.example.com.
+	        IN	NS	ns2.example.com.
+test        IN  A   192.168.4.1
+            IN  ALIAS ABCDEFGHIJKLMN_aliastest-123456789.ap-northeast-1.elb.amazonaws.com  ; comment
+aliastest1  IN  ALIAS ABCDEFGHIJKLMN_aliastest1-123456789.ap-northeast-1.elb.amazonaws.com ; comment
+aliastest2  IN  ALIAS ABCDEFGHIJKLMN_aliastest2-123456789.ap-northeast-1.elb.amazonaws.com; comment
 
 ; AWS SPECIFIC BEGIN
 ;[{
-;  "Name": "aliastest.example.com.",
+;  "Name": "aliastest3.example.com.",
 ;  "Type": "A",
 ;  "ResourceRecords": [
 ;  ],
 ;  "AliasTarget": {
 ;    "HostedZoneId": "ABCDEFGHIJKLMN",
-;    "DNSName": "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
+;    "DNSName":"aliastest3-123456789.ap-northeast-1.elb.amazonaws.com" 
 ;  }
 ;},
 ;{

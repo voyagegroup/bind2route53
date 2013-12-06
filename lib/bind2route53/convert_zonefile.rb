@@ -60,8 +60,11 @@ module Bind2Route53
         record_sets = self.send("parse_records_#{record_type.to_s}", zonename, records)
         @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += record_sets
       end
-      
-      aws_specific = File.read(zonefile_path).scan(/^; AWS SPECIFIC BEGIN\n(.*); AWS SPECIFIC END$/m).flatten[0]
+
+      zonefile = File.read(zonefile_path)
+      @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += parse_records_alias(zonename, zonefile)
+
+      aws_specific = zonefile.scan(/^; AWS SPECIFIC BEGIN\n(.*); AWS SPECIFIC END$/m).flatten[0]
       if aws_specific
         @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += JSON.parse(aws_specific.gsub(/^;/, ''))
       end
@@ -213,6 +216,28 @@ module Bind2Route53
       end
     
       record_sets
+    end
+
+    def parse_records_alias(zonename, zonefile)
+      record_sets = []
+
+      alias_records = zonefile.scan(/\n(.*?)[ \t]+IN\s+ALIAS\s+(.*?)_(.*?)[\s;]+/)
+      alias_records.each do |record|
+        name_alias = zonename
+        name_alias = "#{record[0]}.#{zonename}" unless record[0].empty?
+
+        record_set = {
+          "Name" => name_alias,
+          "Type" => "A",
+          "ResourceRecords" => [],
+          "AliasTarget" => {
+              "HostedZoneId" => record[1],
+              "DNSName"      => record[2]
+          }
+        }
+        record_sets << record_set
+      end
+      return record_sets
     end
 
     def template_json

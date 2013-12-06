@@ -138,35 +138,54 @@ class TestConvertZonefile < Test::Unit::TestCase
       {"ResourceRecords"=>["192.168.4.1"], "TTL"=>"900", "Name"=>"test.example.com.", "Type"=>"A"},
       {
         "ResourceRecords" => [], 
-        "Name" => "aliastest.example.com.",
+        "Name" => "example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName" => "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
         },
         "Type" => "A"
       }, {
-        "ResourceRecords"=>["192.168.4.1"],
-        "TTL"=>"300",
-        "SetIdentifer"=>"Test for weighted policy 10.",
-        "Name"=>"policytest-weighted.example.com.",
-        "Weight"=>"10",
-        "Type"=>"A"
+        "ResourceRecords" => [], 
+        "Name" => "aliastest1.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "aliastest1-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
       }, {
-        "ResourceRecords"=>["192.168.4.2"],
-          "TTL"=>"300",
-          "SetIdentifer"=>"Test for weighted policy 3",
-          "Name"=>"policytest-weighted.example.com.",
-          "Weight"=>"3",
-          "Type"=>"A"
+        "ResourceRecords" => [], 
+        "Name" => "aliastest2.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "aliastest2-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
+        "ResourceRecords" => [], 
+        "Name" => "aliastest3.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "aliastest3-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
+        "ResourceRecords" => ["192.168.4.1"],
+        "TTL"             => "300",
+        "SetIdentifer"    => "Test for weighted policy 10.",
+        "Name"            => "policytest-weighted.example.com.",
+        "Weight"          => "10",
+        "Type"            => "A"
+      }, {
+        "ResourceRecords" => ["192.168.4.2"],
+          "TTL"           => "300",
+          "SetIdentifer"  => "Test for weighted policy 3",
+          "Name"          => "policytest-weighted.example.com.",
+          "Weight"        => "3",
+          "Type"          => "A"
       } 
     ]
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end
 end
-
-
-
-
-
 
