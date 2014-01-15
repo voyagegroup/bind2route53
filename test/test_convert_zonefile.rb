@@ -185,6 +185,30 @@ class TestConvertZonefile < Test::Unit::TestCase
         },
         "Type" => "A"
       }, {
+        "ResourceRecords" => [], 
+        "Name" => "10.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "10-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
+        "ResourceRecords" => [], 
+        "Name" => "20.example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "20-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
+        "ResourceRecords" => [], 
+        "Name" => "example.com.",
+        "AliasTarget" => {
+          "HostedZoneId" => "ABCDEFGHIJKLMN",
+          "DNSName"      => "30-123456789.ap-northeast-1.elb.amazonaws.com"
+        },
+        "Type" => "A"
+      }, {
         "ResourceRecords" => ["192.168.4.1"],
         "TTL"             => "300",
         "SetIdentifer"    => "Test for weighted policy 10.",
