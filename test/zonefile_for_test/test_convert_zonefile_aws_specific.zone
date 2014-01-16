@@ -10,12 +10,12 @@ $TTL 900
 	        IN	NS	ns1.example.com.
 	        IN	NS	ns2.example.com.
 test        IN  A   192.168.4.1
-            IN  ALIAS ABCDEFGHIJKLMN_aliastest-123456789.ap-northeast-1.elb.amazonaws.com  ; comment
-aliastest1  IN  ALIAS ABCDEFGHIJKLMN_aliastest1-123456789.ap-northeast-1.elb.amazonaws.com ; comment
-aliastest2  IN  ALIAS ABCDEFGHIJKLMN_aliastest2-123456789.ap-northeast-1.elb.amazonaws.com; comment
-10          IN  ALIAS ABCDEFGHIJKLMN_10-123456789.ap-northeast-1.elb.amazonaws.com  ; comment
-20  21      IN  ALIAS ABCDEFGHIJKLMN_20-123456789.ap-northeast-1.elb.amazonaws.com  ; comment
- 31         IN  ALIAS ABCDEFGHIJKLMN_30-123456789.ap-northeast-1.elb.amazonaws.com  ; comment
+            IN  ALIAS ABCDEFGHIJKLMN_aliastest-123456789.ap-northeast-1.elb.amazonaws.com.  ; comment
+aliastest1  IN  ALIAS ABCDEFGHIJKLMN_aliastest1-123456789.ap-northeast-1.elb.amazonaws.com. ; comment
+aliastest2  IN  ALIAS ABCDEFGHIJKLMN_aliastest2-123456789.ap-northeast-1.elb.amazonaws.com.; comment
+10          IN  ALIAS ABCDEFGHIJKLMN_10-123456789.ap-northeast-1.elb.amazonaws.com.  ; comment
+20  21      IN  ALIAS ABCDEFGHIJKLMN_20-123456789.ap-northeast-1.elb.amazonaws.com.  ; comment
+ 31         IN  ALIAS ABCDEFGHIJKLMN_30-123456789.ap-northeast-1.elb.amazonaws.com.  ; comment
 
 ; AWS SPECIFIC BEGIN
 ;[{
@@ -25,7 +25,7 @@ aliastest2  IN  ALIAS ABCDEFGHIJKLMN_aliastest2-123456789.ap-northeast-1.elb.ama
 ;  ],
 ;  "AliasTarget": {
 ;    "HostedZoneId": "ABCDEFGHIJKLMN",
-;    "DNSName":"aliastest3-123456789.ap-northeast-1.elb.amazonaws.com" 
+;    "DNSName":"aliastest3-123456789.ap-northeast-1.elb.amazonaws.com." 
 ;  }
 ;},
 ;{

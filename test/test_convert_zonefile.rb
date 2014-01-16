@@ -157,7 +157,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "aliastest-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "aliastest-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -165,7 +165,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "aliastest1.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "aliastest1-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "aliastest1-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -173,7 +173,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "aliastest2.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "aliastest2-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "aliastest2-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -181,7 +181,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "aliastest3.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "aliastest3-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "aliastest3-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -189,7 +189,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "10.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "10-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "10-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -197,7 +197,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "20.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "20-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "20-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
@@ -205,7 +205,7 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name" => "example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "30-123456789.ap-northeast-1.elb.amazonaws.com"
+          "DNSName"      => "30-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
