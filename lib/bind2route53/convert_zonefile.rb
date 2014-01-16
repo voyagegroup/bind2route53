@@ -222,7 +222,6 @@ module Bind2Route53
       record_sets = []
 
       alias_records = zonefile.scan(/\n(\w*)[ \t]+(\d*[wdhms]?)[ \t]*IN\s+ALIAS\s+(.*?)_(.*?)[\s;]+/)
-      pp alias_records
       alias_records.each do |record|
         name_alias = zonename
         name_alias = "#{record[0]}.#{zonename}" unless record[0].empty?
