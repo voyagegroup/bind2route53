@@ -4,7 +4,7 @@ bind2route53
 Management tool for Route 53 with bind zone file.
 
 ## Setup
-### Create IAM Account
+### 1. Create IAM Account
 #### CloudFormation privileges. 
 ```json
 {
@@ -50,7 +50,7 @@ Management tool for Route 53 with bind zone file.
   ]
 }
 ```
-### Clone and create config file.
+### 2. Clone and create config file.
 ```bash
 $ git clone https://github.com/vg-s-tajima/bind2route53.git
 $ cd bind2route53/config/
@@ -62,6 +62,10 @@ $ cat default.yml
 :secret_key:             # Secret key for AWS api.
 :confirm:                # If true, This scripts confirms before create/update AWS Resources(HostedZone/Stack).
 ```
+
+### 3. Start Using bind2route53. 
+Let's run bind2route53 commands below.
+
 
 ## Usage
 
