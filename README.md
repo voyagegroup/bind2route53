@@ -108,3 +108,4 @@ Let's run bind2route53 commands below.
     ex.) 
     $ bin/update_hostedzone_stack -t /path/to/templatefile.template
 
+
