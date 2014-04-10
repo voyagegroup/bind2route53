@@ -108,4 +108,6 @@ Let's run bind2route53 commands below.
     ex.) 
     $ bin/update_hostedzone_stack -t /path/to/templatefile.template
 
+## License
+This Tool is distributed under the Apache License, Version 2.0.
 
