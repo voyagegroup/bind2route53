@@ -52,7 +52,7 @@ Management tool for Route 53 with bind zone file.
 ```
 ### 2. Clone and create config file.
 ```bash
-$ git clone https://github.com/vg-s-tajima/bind2route53.git
+$ git clone https://github.com/voyagegroup/bind2route53.git
 $ cd bind2route53/config/
 $ cp default.yml.template default.yml
 $ cat default.yml
