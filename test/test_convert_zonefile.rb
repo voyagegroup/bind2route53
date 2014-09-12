@@ -222,8 +222,23 @@ class TestConvertZonefile < Test::Unit::TestCase
           "Name"          => "policytest-weighted.example.com.",
           "Weight"        => "3",
           "Type"          => "A"
+      }, {
+        "ResourceRecords" => ["192.168.5.1"],
+        "TTL"             => "900",
+        "SetIdentifer"    => "weighted_a.example.com. to 192.168.5.1 weight 100",
+        "Name"            => "weighted_a.example.com.",
+        "Weight"          => "100",
+        "Type"            => "A"
+      }, {
+        "ResourceRecords" => ["192.168.5.2"],
+        "TTL"             => "900",
+        "SetIdentifer"    => "weighted_a.example.com. to 192.168.5.2 weight 200",
+        "Name"            => "weighted_a.example.com.",
+        "Weight"          => "200",
+        "Type"            => "A"
       } 
     ]
+
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end

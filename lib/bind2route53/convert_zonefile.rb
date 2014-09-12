@@ -78,8 +78,14 @@ module Bind2Route53
         ttl_a  = record[:ttl] || @default_ttl
         name_a = zonename
         name_a = "#{record[:name]}.#{zonename}" unless record[:name].nil?
-    
-        unless record_sets.select {|r| r["Name"] == "#{name_a}" }.empty?
+
+        weight_info = record[:host].scan(/(.*)@WEIGHT(\d+)/).flatten
+        unless weight_info.empty?
+          record[:host]   = weight_info[0]
+          record[:weight] = weight_info[1]
+        end
+
+        if !record_sets.select {|r| r["Name"] == "#{name_a}" }.empty? && weight_info.empty?
            record_sets.select {|r| r["Name"] == "#{name_a}" }[0]["ResourceRecords"] << record[:host]
            next
         end
@@ -90,6 +96,12 @@ module Bind2Route53
           "TTL"  => "#{ttl_a}",
           "ResourceRecords" => [record[:host]]
         }
+
+        unless weight_info.empty?
+          record_set["SetIdentifer"] = "#{name_a} to #{record[:host]} weight #{record[:weight]}"
+          record_set["Weight"]       = "#{record[:weight]}"
+        end
+
         record_sets << record_set
       end
     
