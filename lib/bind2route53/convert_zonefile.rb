@@ -115,6 +115,12 @@ module Bind2Route53
         ttl_cname  = record[:ttl] || @default_ttl
         name_cname = zonename
         name_cname = "#{record[:name]}.#{zonename}" unless record[:name].nil?
+
+        weight_info = record[:host].scan(/(.*)@WEIGHT(\d+)/).flatten
+        unless weight_info.empty?
+          record[:host]   = weight_info[0]
+          record[:weight] = weight_info[1]
+        end
         
         record[:host] = "#{zonename}"                  if     record[:host] == '@'
         record[:host] = "#{record[:host]}.#{zonename}" unless record[:host] =~ /\.$/
@@ -125,6 +131,12 @@ module Bind2Route53
           "TTL"  => "#{ttl_cname}",
           "ResourceRecords" => [record[:host]]
         }
+
+        unless weight_info.empty?
+          record_set["SetIdentifer"] = "#{name_cname} to #{record[:host]} weight #{record[:weight]}"
+          record_set["Weight"]       = "#{record[:weight]}"
+        end
+
         record_sets << record_set
       end
     

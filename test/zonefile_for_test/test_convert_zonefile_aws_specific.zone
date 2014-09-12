@@ -21,6 +21,9 @@ aliastest2  IN  ALIAS ABCDEFGHIJKLMN_aliastest2-123456789.ap-northeast-1.elb.ama
 weighted_a   IN  A   192.168.5.1@WEIGHT100
 weighted_a   IN  A   192.168.5.2@WEIGHT200
 
+weighted_cname   IN  CNAME  cnametest@WEIGHT100
+weighted_cname   IN  CNAME  cnametest.example2.com.@WEIGHT200
+
 ; AWS SPECIFIC BEGIN
 ;[{
 ;  "Name": "aliastest3.example.com.",

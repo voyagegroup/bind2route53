@@ -236,6 +236,20 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Name"            => "weighted_a.example.com.",
         "Weight"          => "200",
         "Type"            => "A"
+      }, {
+        "ResourceRecords" => ["cnametest.example.com."],
+        "TTL"             => "900",
+        "SetIdentifer"    => "weighted_cname.example.com. to cnametest.example.com. weight 100",
+        "Name"            => "weighted_cname.example.com.",
+        "Weight"          => "100",
+        "Type"            => "CNAME"
+      }, {
+        "ResourceRecords" => ["cnametest.example2.com."],
+        "TTL"             => "900",
+        "SetIdentifer"    => "weighted_cname.example.com. to cnametest.example2.com. weight 200",
+        "Name"            => "weighted_cname.example.com.",
+        "Weight"          => "200",
+        "Type"            => "CNAME"
       } 
     ]
 
