@@ -38,7 +38,7 @@ weighted_cname   IN  CNAME  cnametest.example2.com.@WEIGHT200
 ;{
 ;  "Name": "policytest-weighted.example.com.",
 ;  "Type": "A",
-;  "SetIdentifer": "Test for weighted policy 10.",
+;  "SetIdentifier": "Test for weighted policy 10.",
 ;  "Weight": "10",
 ;  "TTL": "300",
 ;  "ResourceRecords": [
@@ -48,7 +48,7 @@ weighted_cname   IN  CNAME  cnametest.example2.com.@WEIGHT200
 ;{
 ;  "Name": "policytest-weighted.example.com.",
 ;  "Type": "A",
-;  "SetIdentifer": "Test for weighted policy 3",
+;  "SetIdentifier": "Test for weighted policy 3",
 ;  "Weight": "3",
 ;  "TTL": "300",
 ;  "ResourceRecords": [

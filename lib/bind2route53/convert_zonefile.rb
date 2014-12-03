@@ -98,7 +98,7 @@ module Bind2Route53
         }
 
         unless weight_info.empty?
-          record_set["SetIdentifer"] = "#{name_a} to #{record[:host]} weight #{record[:weight]}"
+          record_set["SetIdentifier"] = "#{name_a} to #{record[:host]} weight #{record[:weight]}"
           record_set["Weight"]       = "#{record[:weight]}"
         end
 
@@ -133,7 +133,7 @@ module Bind2Route53
         }
 
         unless weight_info.empty?
-          record_set["SetIdentifer"] = "#{name_cname} to #{record[:host]} weight #{record[:weight]}"
+          record_set["SetIdentifier"] = "#{name_cname} to #{record[:host]} weight #{record[:weight]}"
           record_set["Weight"]       = "#{record[:weight]}"
         end
 
