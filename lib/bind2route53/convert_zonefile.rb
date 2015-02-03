@@ -47,7 +47,7 @@ module Bind2Route53
       @default_ttl = zf.ttl
       
       zf.records.each do |record_type, records|
-        supported_records_type = [:a, :txt, :cname, :mx, :ptr, :ns]
+        supported_records_type = [:a, :txt, :cname, :mx, :ptr, :ns, :srv]
         ignore_records_type    = [:soa]
       
         next if records.empty? || ignore_records_type.include?(record_type)
@@ -238,7 +238,35 @@ module Bind2Route53
         }
         record_sets << record_set
       end
-    
+
+      record_sets
+    end
+
+    def parse_records_srv(zonename, records)
+      record_sets = []
+
+      records.each do |record|
+        ttl_srv  = record[:ttl] || @default_ttl
+        name_srv = zonename
+        name_srv = "#{record[:name]}.#{zonename}" unless record[:name].nil?
+
+        record[:host] = record[:pri].to_s + " " + record[:weight] + " " + record[:port] + " " + record[:host]
+        record[:host] = "#{record[:host]}.#{zonename}"          unless record[:host] =~ /\.$/
+
+        unless record_sets.select {|r| r["Name"] == "#{name_srv}" }.empty?
+           record_sets.select {|r| r["Name"] == "#{name_srv}" }[0]["ResourceRecords"] << record[:host]
+           next
+        end
+
+        record_set = {
+          "Name" => name_srv,
+          "Type" => "SRV",
+          "TTL"  => "#{ttl_srv}",
+          "ResourceRecords" => [record[:host]]
+        }
+        record_sets << record_set
+      end
+
       record_sets
     end
 

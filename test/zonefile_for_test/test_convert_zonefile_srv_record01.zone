@@ -1,0 +1,14 @@
+$TTL 600
+@	IN	SOA	ns1.example.com. ns2.example.com.  (
+	2000000000; serial
+	10800     ; refresh
+	3600      ; retry
+	604800    ; expire
+	600       ; default_ttl
+) 
+
+           IN   NS    ns1.example.com.
+           IN   NS    ns2.example.com.
+test-srv   IN  SRV    1  0  21  example.com.
+test2-srv  IN  SRV    1  0  21  test2-a
+test2-srv  IN  SRV    2  0  22  test2-a

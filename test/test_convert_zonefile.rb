@@ -141,6 +141,22 @@ class TestConvertZonefile < Test::Unit::TestCase
     assert_equal [], recordsets - expects
   end
 
+  def test_srv_record
+    configfile_path = './config/default.yml'
+
+    zonename      = 'example.com.'
+    resource_name = zonename2resourcename(zonename, 'R53')
+
+    zonefile_path  = './zonefile_for_test/test_convert_zonefile_srv_record01.zone'
+    args = ['-f', zonefile_path, '-z', zonename, '-c', configfile_path]
+    recordsets = ConvertZonefile.new(args).template_hash["Resources"][resource_name]["Properties"]["RecordSets"]
+
+    expects = [{"ResourceRecords"=>["1 0 21 example.com."], "TTL"=>"600", "Name"=>"test-srv.example.com.", "Type"=>"SRV"},
+               {"ResourceRecords"=>["1 0 21 test2-a.example.com.", "2 0 22 test2-a.example.com."], "TTL"=>"600", "Name"=>"test2-srv.example.com.", "Type"=>"SRV"}]
+    assert_equal [], expects - recordsets
+    assert_equal [], recordsets - expects
+  end
+
   def test_aws_specific
     configfile_path = './config/default.yml'
 
