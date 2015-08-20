@@ -186,10 +186,10 @@ class TestConvertZonefile < Test::Unit::TestCase
         "Type" => "A"
       }, {
         "ResourceRecords" => [], 
-        "Name" => "aliastest2.example.com.",
+        "Name" => "alias-test2.example.com.",
         "AliasTarget" => {
           "HostedZoneId" => "ABCDEFGHIJKLMN",
-          "DNSName"      => "aliastest2-123456789.ap-northeast-1.elb.amazonaws.com."
+          "DNSName"      => "alias-test2-123456789.ap-northeast-1.elb.amazonaws.com."
         },
         "Type" => "A"
       }, {
