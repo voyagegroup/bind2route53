@@ -1,6 +1,8 @@
 bind2route53
 ============
 
+[![Build Status](https://travis-ci.org/voyagegroup/bind2route53.svg?branch=master)](https://travis-ci.org/voyagegroup/bind2route53)
+
 Management tool for Route 53 with bind zone file.
 
 ## Setup
