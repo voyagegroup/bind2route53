@@ -1,4 +1,5 @@
 #!/bin/bash 
+
 cd "./test/"
 
 COLOR=$1

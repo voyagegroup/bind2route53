@@ -5,6 +5,6 @@ setup:
 
 .PHONY: test
 test:
-	sh test/exec_all_tests.sh
+	./test/exec_all_tests.sh
 
 travis: test
