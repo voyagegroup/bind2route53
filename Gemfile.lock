@@ -7,7 +7,10 @@ GEM
       uuidtools (~> 2.1)
     json (1.8.1)
     nokogiri (1.5.10)
+    power_assert (0.2.6)
     redgreen (1.2.2)
+    test-unit (3.1.5)
+      power_assert
     uuidtools (2.1.4)
     zonefile (1.04)
 
@@ -18,4 +21,5 @@ DEPENDENCIES
   aws-sdk
   json
   redgreen
+  test-unit
   zonefile
