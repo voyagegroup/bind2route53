@@ -68,6 +68,12 @@ module Bind2Route53
       if aws_specific
         @template["Resources"]["#{resources_neme}"]["Properties"]["RecordSets"] += JSON.parse(aws_specific.gsub(/^;/, ''))
       end
+
+      additional_resources = zonefile.scan(/^; ADDITIONAL RESOURCES BEGIN\n(.*); ADDITIONAL RESOURCES END$/m).flatten[0]
+      if additional_resources
+        @template["Resources"].merge!(JSON.parse(additional_resources.gsub(/^;/, '')))
+      end
+
       @template
     end
 

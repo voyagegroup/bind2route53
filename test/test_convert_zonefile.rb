@@ -272,5 +272,32 @@ class TestConvertZonefile < Test::Unit::TestCase
     assert_equal [], expects - recordsets
     assert_equal [], recordsets - expects
   end
+
+  def test_additional_resources
+    configfile_path = './config/default.yml'
+
+    zonename      = 'example.com.'
+
+    zonefile_path  = './zonefile_for_test/test_convert_zonefile_additional_resources.zone'
+    args = ['-f', zonefile_path, '-z', zonename, '-c', configfile_path]
+    results = ConvertZonefile.new(args).template_hash["Resources"]["R53HCExampleCom"]
+
+    expects = {
+      "Type"       => "AWS::Route53::HealthCheck",
+      "Properties" => {
+        "HealthCheckConfig"=> {
+          "Port"=>"80",
+          "Type"=>"HTTP",
+          "ResourcePath"=>"/",
+          "FullyQualifiedDomainName"=>"example.com",
+          "RequestInterval"=>"30",
+          "FailureThreshold"=>"3"
+        }
+      }
+    }
+
+    assert_equal [], expects.to_a - results.to_a
+    assert_equal [], results.to_a - expects.to_a
+  end
 end
 
