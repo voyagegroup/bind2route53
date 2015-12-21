@@ -15,10 +15,10 @@ module Bind2Route53
     end
 
     template_parsed = JSON.parse(template)
-    if template_parsed["Resources"].length > 1
-      warn "[Error][#{$config[:env]}] There is multiple Resource name in template."
-      exit 1
-    end
+#    if template_parsed["Resources"].length > 1
+#      warn "[Error][#{$config[:env]}] There is multiple Resource name in template."
+#      exit 1
+#    end
 
     zonename  = find_zonename_from_template(template_parsed)
     return zonename, template
