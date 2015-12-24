@@ -1,0 +1,21 @@
+{
+  "Resources": {
+    "R53Example1Com": {
+      "Properties": {
+        "RecordSets": [
+          {
+            "ResourceRecords": [
+              "192.168.4.2"
+            ],
+            "TTL": "60",
+            "Name": "example.com",
+            "Type": "A"
+          }
+        ],
+        "HostedZoneName": "example.com."
+      },
+      "Type": "AWS::Route53::RecordSetGroup"
+    }
+  },
+  "AWSTemplateFormatVersion": "2010-09-09"
+}

@@ -1,0 +1,34 @@
+{
+  "Resources": {
+    "R53Example1Com": {
+      "Properties": {
+        "RecordSets": [
+          {
+            "ResourceRecords": [
+              "192.168.4.1"
+            ],
+            "TTL": "60",
+            "Name": "example.com",
+            "Type": "A"
+          }
+        ],
+        "HostedZoneName": "example.com."
+      },
+      "Type": "AWS::Route53::RecordSetGroup"
+    },
+    "R53HCExampleCom": {
+      "Type": "AWS::Route53::HealthCheck",
+      "Properties": {
+        "HealthCheckConfig": {
+          "Port": "443",
+          "Type": "HTTPS",
+          "ResourcePath": "/",
+          "FullyQualifiedDomainName": "example.com",
+          "RequestInterval": "30",
+          "FailureThreshold": "5"
+        }
+      }
+    }
+  },
+  "AWSTemplateFormatVersion": "2010-09-09"
+}

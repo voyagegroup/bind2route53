@@ -32,6 +32,29 @@ module Bind2Route53
     template_parsed["Resources"].select { |k, r| r["Type"] == 'AWS::Route53::RecordSetGroup' }.size
   end
 
+  def diff_records(new_template_parsed, cur_template_parsed, resource_name)
+    new_records = new_template_parsed['Resources'][resource_name]['Properties']["RecordSets"]
+    cur_records = cur_template_parsed['Resources'][resource_name]['Properties']["RecordSets"]
+
+    added_records   = new_records - cur_records
+    deleted_records = cur_records - new_records
+
+    return added_records, deleted_records
+  end
+
+  def diff_other_resources(new_template_parsed, cur_template_parsed)
+    new_resources = new_template_parsed['Resources'].to_a
+    cur_resources = cur_template_parsed['Resources'].to_a
+
+    added_resources   = Hash[(new_resources - cur_resources)]
+    deleted_resources = Hash[(cur_resources - new_resources)]
+
+    added_resources.reject! {|key, val| val["Type"] == 'AWS::Route53::RecordSetGroup' }
+    deleted_resources.reject! {|key, val| val["Type"] == 'AWS::Route53::RecordSetGroup' }
+
+    return added_resources, deleted_resources
+  end
+
   def wait_update_stacke(cfm, stackname, interval = 10)
       30.times do |t|
         status = cfm.stacks[stackname].status

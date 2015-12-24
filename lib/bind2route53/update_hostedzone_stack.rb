@@ -32,20 +32,19 @@ module Bind2Route53
       $logfile = $config[:logdir].nil? ? nil : "#{$config[:logdir]}/#{$config[:env]}-#{zonename.gsub(/\//, '\\\057')}log"
       $logger  = MyLogger.new($logfile)
 
-      new_records = JSON.parse(new_template)['Resources'][resource_name]['Properties']["RecordSets"]
-      cur_records = JSON.parse(cur_template)['Resources'][resource_name]['Properties']["RecordSets"]
+      added_records, deleted_records = diff_records(JSON.parse(new_template), JSON.parse(cur_template), resource_name)
+      added_resources, deleted_resources = diff_other_resources(JSON.parse(new_template), JSON.parse(cur_template))
 
-      added_records   = new_records - cur_records
-      deleted_records = cur_records - new_records
-
-      if added_records.empty? && deleted_records.empty?
+      if added_records.empty? && deleted_records.empty? && added_resources.empty? && deleted_resources.empty?
         $logger.warn "[Warn][#{$config[:env]}] Template is updated. No need to update stack."
         exit
       end
 
-      $logger.info "[Info][#{$config[:env]}] Record sets diff are below."
+      $logger.info "[Info][#{$config[:env]}] Diff are below."
       display_records(added_records,   '+')
       display_records(deleted_records, '-')
+      display_resources(added_resources,   '+')
+      display_resources(deleted_resources, '-')
 
       confirm("Do you update hosted zone stack?") if $config[:confirm] 
       cfm.stacks[stackname].update(:template => new_template)
@@ -61,6 +60,12 @@ module Bind2Route53
     def display_records(records, prefix = '+')
       records.each do |r|
         $logger.info "#{prefix} #{r["Name"].ljust(40)} #{r["Type"].ljust(8)} #{r["ResourceRecords"].join(" ")}"
+      end
+    end
+
+    def display_resources(resources, prefix = '+')
+      resources.each do |r|
+        $logger.info "#{prefix} #{r.to_s}"
       end
     end
 
