@@ -15,10 +15,10 @@ module Bind2Route53
     end
 
     template_parsed = JSON.parse(template)
-#    if template_parsed["Resources"].length > 1
-#      warn "[Error][#{$config[:env]}] There is multiple Resource name in template."
-#      exit 1
-#    end
+    if count_record_set_group(template_parsed) > 1
+      warn "[Error][#{$config[:env]}] There is multiple RecordSetGroup in template."
+      exit 1
+    end
 
     zonename  = find_zonename_from_template(template_parsed)
     return zonename, template
@@ -26,6 +26,10 @@ module Bind2Route53
 
   def find_zonename_from_template(template_parsed)
     template_parsed["Resources"].shift[1]["Properties"]["HostedZoneName"]
+  end
+
+  def count_record_set_group(template_parsed)
+    template_parsed["Resources"].select { |k, r| r["Type"] == 'AWS::Route53::RecordSetGroup' }.size
   end
 
   def wait_update_stacke(cfm, stackname, interval = 10)

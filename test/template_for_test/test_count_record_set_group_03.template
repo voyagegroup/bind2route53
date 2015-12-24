@@ -1,0 +1,18 @@
+{
+  "Resources": {
+    "R53HCMangapediaCom": {
+      "Type": "AWS::Route53::HealthCheck",
+      "Properties": {
+        "HealthCheckConfig": {
+          "Port": "443",
+          "Type": "HTTPS",
+          "ResourcePath": "/",
+          "FullyQualifiedDomainName": "example.com",
+          "RequestInterval": "30",
+          "FailureThreshold": "3"
+        }
+      }
+    }
+  },
+  "AWSTemplateFormatVersion": "2010-09-09"
+}
