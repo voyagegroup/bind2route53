@@ -6,7 +6,7 @@ GEM
       nokogiri (>= 1.4.4, < 1.6.0)
       uuidtools (~> 2.1)
     json (1.8.1)
-    nokogiri (1.5.10)
+    nokogiri (1.5.11)
     power_assert (0.2.6)
     redgreen (1.2.2)
     test-unit (3.1.5)
